@@ -164,11 +164,3 @@ const fetchBudgets = async () => {
       setLoadingAi(false);
     }
   };
-  :\Users\Aarushi\OneDrive\Desktop\Hackinmotion\HackInMotion-RICR-HIM-1258> git commit -m "Add budget health and AI analysis UI"
-On branch Aarushi
-Your branch is up to date with 'origin/Aarushi'.
-
-nothing to commit, working tree clean
-PS C:\Users\Aarushi\OneDrive\Desktop\Hackinmotion\HackInMotion-RICR-HIM-1258> git push origin Aarushi
-Everything up-to-date
-PS C:\Users\Aarushi\OneDrive\Desktop\Hackinmotion\HackInMotion-RICR-HIM-1258> 
