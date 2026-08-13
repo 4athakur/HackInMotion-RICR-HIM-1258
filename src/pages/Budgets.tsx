@@ -51,3 +51,20 @@ interface SummaryData {
   daysRemaining: number;
   overallAiAdvice: string;
 }
+export default function Budgets() {
+  const api = useApi();
+  const [budgets, setBudgets] = useState<BudgetItem[]>([]);
+  const [summary, setSummary] = useState<SummaryData | null>(null);
+  const [categoriesList, setCategoriesList] = useState<CategoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Modal / Form state
+  const [showModal, setShowModal] = useState(false);
+  const [editingBudgetId, setEditingBudgetId] = useState<number | null>(null);
+  const [selectedCatId, setSelectedCatId] = useState<number | string>('');
+  const [customCatName, setCustomCatName] = useState('');
+  const [budgetAmount, setBudgetAmount] = useState('');
+
+  // AI Deep Insights modal
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
+  const [loadingAi, setLoadingAi] = useState(false);
