@@ -1,3 +1,4 @@
+// Budget management page - handles budgets, spending tracking, and AI recommendations
 import { useEffect, useState } from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { 
