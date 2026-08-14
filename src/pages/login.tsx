@@ -20,6 +20,37 @@ export default function Login() {
     return <Navigate to="/" />;
   }
 
+  const formatAuthError = (err: any): string => {
+    const code = err?.code || '';
+    const message = err?.message || '';
+
+    if (code === 'auth/popup-closed-by-user' || message.includes('popup-closed-by-user')) {
+      return 'Sign-in window was closed before completing. Please try again.';
+    }
+    if (code === 'auth/popup-blocked' || message.includes('popup-blocked')) {
+      return 'Sign-in pop-up was blocked by your browser. Please enable pop-ups and try again.';
+    }
+    if (code === 'auth/cancelled-popup-request') {
+      return '';
+    }
+    if (code === 'auth/invalid-credential' || code === 'auth/user-not-found' || code === 'auth/wrong-password') {
+      return 'Invalid email or password.';
+    }
+    if (code === 'auth/email-already-in-use') {
+      return 'An account with this email address already exists. Try signing in instead.';
+    }
+    if (code === 'auth/weak-password') {
+      return 'Password should be at least 6 characters long.';
+    }
+    if (code === 'auth/network-request-failed') {
+      return 'Network error. Please check your internet connection.';
+    }
+    if (code === 'auth/unauthorized-domain' || message.includes('unauthorized-domain')) {
+      return 'Google sign-in domain not authorized. Add localhost to Firebase Console authorized domains, or use Email & Password.';
+    }
+    return message || 'Authentication failed. Please try again.';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -36,7 +67,8 @@ export default function Login() {
         await registerWithEmail(name, email, password);
       }
     } catch (err: any) {
-      setError(err.message || 'Authentication failed. Please try again.');
+      const friendlyMsg = formatAuthError(err);
+      setError(friendlyMsg);
     } finally {
       setLoading(false);
     }
@@ -48,8 +80,10 @@ export default function Login() {
       setLoading(true);
       await loginWithGoogle();
     } catch (err: any) {
-      console.error(err);
-      setError(err.message || 'Google sign-in failed. Please try again.');
+      console.warn('Google sign-in error:', err);
+      const friendlyMsg = formatAuthError(err);
+      setError(friendlyMsg);
+    } finally {
       setLoading(false);
     }
   };
@@ -65,7 +99,7 @@ export default function Login() {
               <TrendingUp size={32} strokeWidth={2.5} />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-[#002b49]">SmartSpend</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-1 text-[#002b49]">SmartSpend</h1>
           <p className="text-slate-500 font-medium text-sm">Because you can't fix what you can't see.</p>
         </div>
 
@@ -93,7 +127,7 @@ export default function Login() {
 
         <div className="p-8 pt-6">
           {error && (
-            <div className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-medium text-center shadow-xs">
+            <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-xs font-medium text-center shadow-xs leading-relaxed">
               {error}
             </div>
           )}
@@ -110,7 +144,7 @@ export default function Login() {
                     onChange={(e) => setName(e.target.value)}
                     placeholder="John Doe"
                     disabled={loading}
-                    className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
+                    className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] text-sm focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
                   />
                 </div>
               </div>
@@ -126,7 +160,7 @@ export default function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   disabled={loading}
-                  className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
+                  className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] text-sm focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
                 />
               </div>
             </div>
@@ -141,7 +175,7 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   disabled={loading}
-                  className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
+                  className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] text-sm focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
                 />
               </div>
             </div>
@@ -157,7 +191,7 @@ export default function Login() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
                     disabled={loading}
-                    className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
+                    className="w-full bg-[#f8fafc] border border-[#e1e8ed] rounded-xl py-3 pl-11 pr-4 text-[#0f172a] text-sm focus:outline-none focus:ring-2 focus:ring-[#005b8e]/20 focus:border-[#005b8e]"
                   />
                 </div>
               </div>
@@ -166,9 +200,9 @@ export default function Login() {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full mt-2 flex items-center justify-center gap-2 bg-[#005b8e] hover:bg-[#004f7c] text-white py-3.5 px-6 rounded-xl font-bold transition-all shadow-xs disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full mt-2 flex items-center justify-center gap-2 bg-[#005b8e] hover:bg-[#004f7c] text-white py-3.5 px-6 rounded-xl font-bold transition-all shadow-xs text-sm disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {loading ? <Loader2 className="animate-spin" size={20} /> : isLogin ? 'Sign In' : 'Create Account'}
+              {loading ? <Loader2 className="animate-spin" size={18} /> : isLogin ? 'Sign In' : 'Create Account'}
             </button>
           </form>
 
@@ -182,10 +216,10 @@ export default function Login() {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="group relative w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 border border-[#e1e8ed] text-slate-700 py-3 px-6 rounded-xl font-bold transition-all shadow-xs disabled:opacity-70 disabled:cursor-not-allowed"
+            className="group relative w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 border border-[#e1e8ed] text-slate-700 py-3 px-6 rounded-xl font-bold transition-all shadow-xs text-sm disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            <span className="relative z-10 flex items-center gap-3">
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+            <span className="relative z-10 flex items-center gap-2.5">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4.5 h-4.5" />
               Continue with Google
             </span>
           </button>
