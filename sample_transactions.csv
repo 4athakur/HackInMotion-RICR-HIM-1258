@@ -1,0 +1,13 @@
+date,description,merchant,amount,type
+2026-08-01,Monthly salary,Company,50000,income
+2026-08-02,Swiggy order,Swiggy,450,expense
+2026-08-03,Netflix subscription,Netflix,649,expense
+2026-08-04,Grocery shopping,Dmart,1200,expense
+2026-08-05,Electricity Bill,Electricity,1500,expense
+2026-08-06,Uber ride to office,Uber,350,expense
+2026-08-07,Freelance project,Client,15000,income
+2026-08-08,Amazon shopping,Amazon,2300,expense
+2026-08-09,Dinner at restaurant,Dominos,800,expense
+2026-08-10,Spotify Premium,Spotify,119,expense
+2026-08-11,Doctor visit,Apollo,500,expense
+2026-08-12,Movie tickets,BookMyShow,750,expense
