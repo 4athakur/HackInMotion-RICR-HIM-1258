@@ -1,5 +1,4 @@
-// SmartSpend AI Assistant page
-// This component handles the AI financial assistant chat interface.
+// Updated SmartSpend AI Assistant implementation
 import { useState, useRef, useEffect } from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { Send, Bot, User, Sparkles, Loader2 } from 'lucide-react';
