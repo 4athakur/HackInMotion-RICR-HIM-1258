@@ -9,7 +9,9 @@ const user = process.env.SQL_ADMIN_USER;
 const password = process.env.SQL_ADMIN_PASSWORD;
 
 if (!sqlHost || !sqlDbName || !user || !password) {
-  console.warn("Missing SQL connection variables for drizzle.config.ts. This is expected in client build but required for migrations.");
+  console.warn(
+    "Missing SQL connection variables. Database migrations require SQL_HOST, SQL_DB_NAME, SQL_ADMIN_USER, and SQL_ADMIN_PASSWORD."
+  );
 }
 
 export default defineConfig({
