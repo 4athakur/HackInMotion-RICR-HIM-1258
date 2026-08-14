@@ -79,6 +79,7 @@ export default function Goals() {
       console.error('Failed to update goal');
     }
   };
+
   const handleAddSalary = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmittingSalary(true);
