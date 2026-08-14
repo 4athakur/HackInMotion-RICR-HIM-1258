@@ -1,3 +1,4 @@
+// Updated Analytics implementation
 import { useEffect, useState } from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { 
